@@ -10,12 +10,7 @@ use Inertia\Response;
 
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Tools');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -34,13 +29,16 @@ Route::middleware('auth')->group(function () {
 // Route::get('/tool',[ToolController::class, 'index']);
 
 
-Route::prefix('/api')->group(function () {
-    Route::get('/tools', [ToolController::class, 'index']);
-    Route::get('/tools/{tool}', [ToolController::class, 'show']);
-    Route::post('/tools', [ToolController::class, 'store']);
-    Route::put('/tools/{tool}', [ToolController::class, 'update']);
-    Route::delete('/tools/{tool}', [ToolController::class, 'destroy']);
-});
+// Route::prefix('/api')->group(function () {
+//     Route::get('/tools', [ToolController::class, 'index']);
+//     Route::get('/tools/{tool}', [ToolController::class, 'show']);
+//     Route::post('/tools', [ToolController::class, 'store']);
+//     Route::put('/tools/{tool}', [ToolController::class, 'update']);
+//     Route::delete('/tools/{tool}', [ToolController::class, 'destroy']);
+// });
 
+Route::get('/{any}', function () {
+    return view('app');
+})->where('any', '.*');
 
 require __DIR__ . '/auth.php';

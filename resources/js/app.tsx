@@ -1,26 +1,18 @@
 import '../css/app.css';
 import './bootstrap';
-
-import { createInertiaApp } from '@inertiajs/react';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
-import Dashboard from './Pages/Dashboard';
+import { RouterProvider } from 'react-router-dom';
+// import { Progress } from '@inertiajs/core';
+import router from './router';
 
 const appName = import.meta.env.VITE_APP_NAME || 'ToolRemember';
 
-createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>
-        resolvePageComponent(
-            `./Pages/${name}.tsx`,
-            import.meta.glob('./Pages/**/*.tsx'),
-        ),
-    setup({ el, App, props }) {
-        const root = createRoot(el);
+// Get the root element
+const rootElement = document.getElementById('app');
 
-        root.render(<App {...props} />);
-    },
-    progress: {
-        color: '#cd0f38',
-    },
-});
+if (rootElement) {
+    const root = createRoot(rootElement);
+    root.render(
+        <RouterProvider router={router} />
+    );
+}

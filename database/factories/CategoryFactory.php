@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -19,7 +18,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => $this->faker->word(),
+            'name' => $this->faker->word(),
             'parent_category_id' => Category::inRandomOrder()->first()?->id,
         ];
     }

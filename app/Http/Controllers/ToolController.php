@@ -27,7 +27,19 @@ class ToolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tool_name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+            'tool_url' => 'required|url',
+        ]);
+
+        $tool = Tool::create($request->all());
+
+        return response()->json([
+            'tool' => $tool,
+            "status" => 201,
+            "message" => "Tool created successfully"
+        ]);
     }
 
     /**
@@ -35,7 +47,18 @@ class ToolController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tools = Tool::find($id);
+        if (!$tools) {
+            return response()->json([
+                "status" => 404,
+                "message" => "Tool not found"
+            ]);
+        }
+        return response()->json([
+            'tool' => $tools,
+            "status" => 200,
+            "message" => "Tool fetched successfully"
+        ]);
     }
 
     /**
@@ -43,7 +66,26 @@ class ToolController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'tool_name' => 'string|max:255',
+
+        ]);
+
+        $tool = Tool::find($id);
+        if (!$tool) {
+            return response()->json([
+                "status" => 404,
+                "message" => "Tool not found"
+            ]);
+        }
+
+        $tool->update($request->all());
+
+        return response()->json([
+            'tool' => $tool,
+            "status" => 200,
+            "message" => "Tool updated successfully"
+        ]);
     }
 
     /**
@@ -51,6 +93,19 @@ class ToolController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tool = Tool::find($id);
+        if (!$tool) {
+            return response()->json([
+                "status" => 404,
+                "message" => "Tool not found"
+            ]);
+        }
+
+        $tool->delete();
+
+        return response()->json([
+            "status" => 200,
+            "message" => "Tool deleted successfully"
+        ]);
     }
 }

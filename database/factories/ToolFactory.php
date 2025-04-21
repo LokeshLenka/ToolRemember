@@ -17,15 +17,15 @@ class ToolFactory extends Factory
     public function definition(): array
     {
         return [
-          "tool_name" => $this->faker->word(),
-          "tool_description" => $this->faker->sentence(),
-          "tool_url" => $this->faker->url(),
-          "is_dev_tool" => $this->faker->boolean(),
-        //   "is_free" => $this->faker->boolean(),
-        //   "is_open_source" => $this->faker->boolean(),
-          "is_favorite" => $this->faker->boolean(),
-          "category_id" => $this->faker->numberBetween(1, 10),
-          "subcategory_id" => $this->faker->numberBetween(1, 10),
+            'tool_name' => $this->faker->word(),
+            'tool_description' => $this->faker->sentence(),
+            'tool_url' => $this->faker->url(),
+            'is_dev_tool' => $this->faker->boolean(),
+            //   "is_free" => $this->faker->boolean(),
+            //   "is_open_source" => $this->faker->boolean(),
+            'is_favorite' => $this->faker->boolean(),
+            'category_id' => $this->faker->numberBetween(1, 10),
+            'subcategory_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

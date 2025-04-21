@@ -18,11 +18,12 @@ return new class extends Migration
             $table->boolean('is_dev_tool')->default(false);
             $table->string('tool_url')->nullable();
             $table->boolean('is_favorite')->default(false);
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->foreignId('subcategory_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
