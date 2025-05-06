@@ -14,8 +14,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard')
-    ->middleware('auth');
+    ->name('dashboard');
+    // ->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 // Route::inertia('/','Welcome');
 
 
-// Route::get('/tool',[ToolController::class, 'index']);
+Route::get('/tool',[ToolController::class, 'index']);
 
 
 // Route::prefix('/api')->group(function () {

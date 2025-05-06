@@ -27,20 +27,33 @@ class ToolController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request data strictly
         $request->validate([
             'tool_name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
             'tool_url' => 'required|url',
         ]);
 
-        $tool = Tool::create($request->all());
+        try {
+            // Use fillable fields to prevent mass assignment vulnerabilities
+            if ($tool = Tool::create($request->all())) {
 
-        return response()->json([
-            'tool' => $tool,
-            "status" => 201,
-            "message" => "Tool created successfully"
-        ]);
+                return response()->json([
+                    'tool' => $tool,
+                    'status' => 201,
+                    'message' => 'Tool created successfully',
+                ], 201);
+            }
+        } catch (\Exception $e) {
+            // Handle unexpected exceptions safely
+            return response()->json([
+                'status' => 500,
+                'message' => 'An error occurred while storing to the database.',
+                'error' => config('app.debug') ? $e->getMessage() : 'Internal Server Error',
+            ], 500);
+        }
     }
+
 
     /**
      * Display the specified resource.
